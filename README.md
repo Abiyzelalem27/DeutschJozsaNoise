@@ -1,20 +1,12 @@
 
 
 
-[![CI](https://github.com/Abiyzelalem27/AQI_SS26/actions/workflows/python_CI.yml/badge.svg)](https://github.com/Abiyzelalem27/AQI_SS26/actions/workflows/python_CI.yml)
+[![CI](https://github.com/Abiyzelalem27/AQI/actions/workflows/python_CI.yml/badge.svg)](https://github.com/Abiyzelalem27/AQI/actions/workflows/python_CI.yml)
 
-[![codecov](https://codecov.io/github/Abiyzelalem27/AQI_SS26/graph/badge.svg)](https://codecov.io/github/Abiyzelalem27/AQI_SS26)
-
-
-# Advanced Quantum Information (Summer Semester 2026)
-
-**Instructor:** Martin Gärttner (Gärttner Group)  
+[![codecov](https://codecov.io/github/Abiyzelalem27/AQI/graph/badge.svg)](https://codecov.io/github/Abiyzelalem27/AQI)
 
 
-This repository contains the code exercises, programming assignments, and materials for the **Advanced Quantum Information** course.
-
-
-## 📖 Course Description
+# Advanced Quantum Information 
 
 This lecture introduces core physical and mathematical concepts in quantum computing and quantum information theory. An emphasis is put on various aspects of quantum computing, including quantum algorithms and computing models as well as quantum computational complexity theory. 
 
