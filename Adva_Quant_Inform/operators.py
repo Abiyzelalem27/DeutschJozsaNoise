@@ -1,42 +1,46 @@
 
 
-
-# standard numerics and linear algebra libraries
 import numpy as np  
 import numpy.linalg as LA
 import scipy.linalg as sciLA
-
-# sparse matrix functions
+from qutip import basis 
 import scipy.sparse as sparse
-
-# for interactive graphics
 from ipywidgets import interactive, interact
 from ipywidgets import FloatSlider 
-from qutip import tensor, qeye, sigmax, sigmay, sigmaz
-# avoid typing np.XY all the time
+from qutip import tensor, qeye, sigmax, sigmay, sigmaz 
 from numpy import (array, pi, cos, sin, ones, size, sqrt, real, mod, append, arange, exp)
 
-# Define single qubit gates
-X = array([[0,1],
-           [1,0]])
-Y = array([[0,-1j],
-           [1j,0]])
-Z = array([[1,0],
-           [0,-1]])
-H = array([[1,1],
-           [1,-1]])/sqrt(2)
-S = array([[1,0],
-           [0,-1j]])
-T = array([[1,0],
-           [0,exp(1j*pi/4)]])
+X = np.array([[0, 1],
+              [1, 0]])
 
-P0 = np.array([[1,0],
-            [0,0]])
-P1 = np.array([[0,0],
-            [0,1]]) 
+Y = np.array([[0, -1j],
+              [1j, 0]])
 
-I = np.identity(2)
+Z = np.array([[1, 0],
+              [0, -1]])
 
+H = np.array([[1, 1],
+              [1, -1]]) / np.sqrt(2)
+
+S = np.array([[1, 0],
+              [0, 1j]])
+
+T = np.array([[1, 0],
+              [0, np.exp(1j*np.pi/4)]])
+
+P0 = np.array([[1, 0],
+               [0, 0]])
+
+P1 = np.array([[0, 0],
+               [0, 1]])
+
+I = np.identity(2) 
+
+ket0 = 1/np.sqrt(2)*basis(2,0) + 1/np.sqrt(2)*basis(2,1) 
+def psi0(N):
+    psi0_flag = tensor([ket0 for n in range(N)])
+    return(psi0_flag)
+    
 # helper function for generating basis vectors
 def basisvec(n, k):
     v = np.zeros(2**n)
@@ -55,6 +59,79 @@ def buildSparseCNOT(n, ic, it):
     P1ic = buildSparseGateSingle(n, ic, P1)
     Xit  = buildSparseGateSingle(n, it, X)
     return P0ic + P1ic @ Xit
+def U_N_qubits(ops):
+    """
+    Constructs an N-qubit operator using tensor products.
+    """
+    U = ops[0]
+    for op in ops[1:]:
+        U = np.kron(U, op)
+    return U
+
+def U_one_gate(V, i, N):
+    """
+    Applies a single-qubit gate to qubit i in an N-qubit system.
+
+    Parameters
+   ...........
+    V : Single-qubit gate.
+    i : Target qubit index.
+    N : Total number of qubits.
+    """
+    ops = [I] * N
+    ops[i] = V
+    return U_N_qubits(ops)
+    
+def controlled_gate(U, control, target, N):
+    """
+    Controlled-U gate on an N-qubit register.
+    Parameters
+    ...........
+   U:Single-qubit gate
+   N: total number of qubits 
+    """
+    if control == target:
+        raise ValueError("Control and target must be different.")
+
+    # Operator acting on the subspace where control qubit is |0⟩
+    P0_ops = [
+        P0 if i == control else I
+        for i in range(N)
+    ]
+
+    # Operator acting on the subspace where control qubit is |1⟩
+    P1_ops = [
+        P1 if i == control else U if i == target else I
+        for i in range(N)
+    ]
+
+    return U_N_qubits(P0_ops) + U_N_qubits(P1_ops)
+
+def deutschJosza(f, n):
+    psi = initRegister(n)
+    # apply the Hadamards
+    for i in arange(n):
+        psi = buildSparseGateSingle(n,i,H) @ psi
+    # apply U_f
+    psi = buildUf(f, n) @ psi
+    # apply the Hadamards again
+    for i in arange(n):
+        psi = buildSparseGateSingle(n,i,H) @ psi
+
+    # If the probability of having the all zero state is 1, then f is constant.
+    # Since the state of all zero is represented in the computational basis by 1 in the first entry 
+    # and then all zeros, one can just check np.isclose(np.abs(psi[0])**2, 1), 
+    # namely the probability equal to one for the first element of the vector psi[0].
+    # Even simpler, f is constant iff psi[0]=\pm 1 the function is constant (we have a binary choice).
+    if psi[0] == 0:
+        print('The function is balanced.')
+    else:
+        print('The function is constant.')
+
+    # checking
+    ratio = np.sum([f(indToState(n,x)) for x in range(2**n)])/2**n
+    print("The ratio of ones to zeros (computed directly) is:", ratio)
+    return psi 
 
 def initRegister(n):
     return basisvec(n,0)
@@ -107,8 +184,6 @@ sx = sigmax()
 sy = sigmay()
 sz = sigmaz()
 
-# This is basically the same as the function
-# buildSparseGateSingle(n, i, gate) from exercise sheet 3 does.
 def sx_list(N):
     sx_list_flag = []
     for n in range(N):

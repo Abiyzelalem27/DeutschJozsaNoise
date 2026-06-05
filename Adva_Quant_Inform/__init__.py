@@ -1,12 +1,11 @@
 
 
-
-
-from . import hamiltonians, unitaries, operators, plotting
+from . import hamiltonians, unitaries, operators, plotting, black_box
 
 __all__ = [
     "hamiltonians",
     "unitaries",
     "operators",
-    "plotting", 
+    "plotting",
+    "black_box" 
 ] 
