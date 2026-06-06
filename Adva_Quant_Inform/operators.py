@@ -50,15 +50,60 @@ def basisvec(n, k):
 def rotation(ax,theta):
     return sciLA.expm(-1j * theta/2 * (ax[0]*X + ax[1]*Y + ax[2]*Z)) 
     
+
 def buildSparseGateSingle(n, i, gate):
+    """
+    Construct a single-qubit gate acting on qubit i in an n-qubit system
+    using sparse Kronecker products.
+
+    This embeds a 2×2 quantum gate into the full 2^n-dimensional Hilbert space:
+
+        I ⊗ I ⊗ G ⊗ I ⊗ ... ⊗ I
+
+    where the gate G is applied at position i.
+
+    Parameters
+    ----------
+    n : Total number of qubits in the system.
+    i : Target qubit index (0 ≤ i < n).
+    gate :  2×2 quantum gate to apply (e.g., X, H, Z).
+    
+    Notes
+    -----
+    - Uses Kronecker products to embed single-qubit operations.
+    """
+
     sgate = sparse.csr_matrix(gate)
-    return sparse.kron(sparse.kron(sparse.identity(2**i), sgate), sparse.identity(2**(n-i-1)))
+    return sparse.kron(
+        sparse.kron(
+            sparse.identity(2**i, format="csr"),
+            sgate
+        ),
+        sparse.identity(2**(n - i - 1), format="csr")
+    )
+
 
 def buildSparseCNOT(n, ic, it):
-    P0ic = buildSparseGateSingle(n, ic, P0)
-    P1ic = buildSparseGateSingle(n, ic, P1)
-    Xit  = buildSparseGateSingle(n, it, X)
-    return P0ic + P1ic @ Xit
+    """
+    Construct an n-qubit controlled-NOT (CNOT) gate using sparse matrices.
+    The CNOT gate is built using projector decomposition:
+        CNOT = |0><0|_c ⊗ I_t + |1><1|_c ⊗ X_t
+
+    where:
+        - n  : total number of qubits
+        - ic : control qubit index (0 ≤ ic < n)
+        - it : target qubit index (0 ≤ it < n, it ≠ ic)
+    Notes
+    -----
+    - Uses tensor-product construction with sparse matrices.
+    - Computational cost grows exponentially with n (O(2^n)).
+    """
+
+    P0_term = buildSparseGateSingle(n, ic, P0)
+    P1_term = buildSparseGateSingle(n, ic, P1)
+    X_term  = buildSparseGateSingle(n, it, X)
+    return P0_term + P1_term @ X_term
+    
 def U_N_qubits(ops):
     """
     Constructs an N-qubit operator using tensor products.
