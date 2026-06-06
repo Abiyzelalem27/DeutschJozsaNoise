@@ -67,13 +67,13 @@ QuantumSimLab/
 - **Quantum Information and Quantum Simulation (QIQS) Group**  
   Friedrich Schiller University Jena, Germany  
   Research group and academic environment associated with the course.  
-  https://qiqs-jena.de/
+  Website: [qiqs-jena.de](https://qiqs-jena.de/)
 
 - **Nielsen & Chuang**  
   *Quantum Computation and Quantum Information*
 
 - **QuTiP Documentation**  
-  https://qutip.org/docs/
+  Website: [qutip.org/docs](https://qutip.org/docs/)
 
 ---
 
@@ -81,4 +81,4 @@ QuantumSimLab/
 
 **Abiy Zelalem Tegegne**
 
-GitHub: https://github.com/Abiyzelalem27 
+GitHub: [Abiyzelalem27](https://github.com/Abiyzelalem27) 
