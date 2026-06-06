@@ -62,11 +62,11 @@ QuantumSimLab/
 
 ## 📚 References
 
-* ** Advanced Quantum Information Course **  
-  taught by **Prof. Gärttner** at Friedrich Schiller University Jena  
+* **Advanced Quantum Information Course**  
+  The Course taught by **Prof. Gärttner** at Friedrich Schiller University Jena  
   (Quantum Information and Quantum Simulation / QIQS Group)
 
-- **Quantum Information and Quantum Simulation (QIQS) Group**  
+* **Quantum Information and Quantum Simulation (QIQS) Group**  
   Friedrich Schiller University Jena, Germany  
   Research group and academic environment associated with the course.  
   Website: [qiqs-jena.de](https://qiqs-jena.de/)
@@ -74,12 +74,12 @@ QuantumSimLab/
 * **Nielsen & Chuang**  
   *Quantum Computation and Quantum Information*
 
-- **QuTiP Documentation**  
+ * **QuTiP Documentation**  
   Website: [qutip.org/docs](https://qutip.org/docs/)
 
 ## 👤 Author
 
-**Abiy Zelalem Tegegne**
+* **Abiy Zelalem Tegegne**
 
 GitHub: [Abiyzelalem27](https://github.com/Abiyzelalem27) 
 
