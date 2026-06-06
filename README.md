@@ -5,14 +5,13 @@
 
 [![codecov](https://codecov.io/github/Abiyzelalem27/QuantumSimLab/graph/badge.svg)](https://codecov.io/github/Abiyzelalem27/QuantumSimLab)
 
-
 # Classical Simulation of Quantum Circuits, Algorithms & Adiabatic Quantum Computing
 
 ## 📌 Overview
 
 **QuantumSimLab** is a Python-based study framework developed from lecture material for simulating quantum computation on classical hardware.
 
-It provides tools for: 
+It provides tools for:
 
 - Quantum circuit simulation  
 - Sparse and dense gate construction  
@@ -23,35 +22,40 @@ It provides tools for:
 - Measurement simulation  
 - Bloch sphere visualization  
 
+---
+
 ## 🧪 Goal of the Study
 
 This work is designed as a study exploration of the limits of classical simulation of quantum systems, while implementing core concepts from quantum computing and quantum physics taught in lectures.
 
+---
 
+## 📁 Repository Structure
+
+```text
 QuantumSimLab/
 │
 ├── Adva_Quant_Inform/        # Core quantum simulation library
-│   ├── operators.py          # Quantum gates & sparse operators
-│   ├── hamiltonians.py       # Spin-chain Hamiltonians H0, H1
-│   ├── black_box.py          # Oracle functions 
-│   ├── unitaries.py          # Time evolution solvers
-│   ├── plotting.py           # Bloch sphere utilities
+│   ├── operators.py
+│   ├── hamiltonians.py
+│   ├── black_box.py
+│   ├── unitaries.py
+│   ├── plotting.py
 │   └── __init__.py
 │
-├── Notebooks/               
+├── Notebooks/
 │   ├── Quantum Circuit Emulator.ipynb
 │   ├── Adiabatic Quantum Computing.ipynb
 │   ├── Shor’s Algorithm.ipynb
 │
-├── Solutions/               
+├── Solutions/
 │   ├── Quantum Circuit Emulator.ipynb
 │   ├── Adiabatic Quantum Computing.ipynb
 │
 ├── LICENSE
 ├── README.md
 ├── pyproject.toml
-└── .gitignore
-
+└── .gitignore 
 
 
 ## 📚 References
