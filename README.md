@@ -32,7 +32,7 @@ This work is designed as a study exploration of the limits of classical simulati
 
 ## 📁 Repository Structure
 
-```text
+```
 QuantumSimLab/
 │
 ├── Adva_Quant_Inform/        # Core quantum simulation library
@@ -56,11 +56,13 @@ QuantumSimLab/
 ├── README.md
 ├── pyproject.toml
 └── .gitignore 
+```
 
+---
 
 ## 📚 References
 
-- **Advanced Quantum Information Course**  
+* ** Advanced Quantum Information Course **  
   taught by **Prof. Gärttner** at Friedrich Schiller University Jena  
   (Quantum Information and Quantum Simulation / QIQS Group)
 
@@ -69,16 +71,16 @@ QuantumSimLab/
   Research group and academic environment associated with the course.  
   Website: [qiqs-jena.de](https://qiqs-jena.de/)
 
-- **Nielsen & Chuang**  
+* **Nielsen & Chuang**  
   *Quantum Computation and Quantum Information*
 
 - **QuTiP Documentation**  
   Website: [qutip.org/docs](https://qutip.org/docs/)
-
----
 
 ## 👤 Author
 
 **Abiy Zelalem Tegegne**
 
 GitHub: [Abiyzelalem27](https://github.com/Abiyzelalem27) 
+
+
