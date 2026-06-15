@@ -68,6 +68,11 @@ DeutschJozsaNoise/
 │   ├── deutsch_jozsa.py
 │   └── oracle.py
 │
+├── images/
+│   ├── oracle_operator.png
+│   ├── deutsch_jozsa_circuit.png
+│   └── dja_noise_model.png
+│
 ├── DeutschJozsaNoiseAnalysis.ipynb
 ├── QuantumCircuitSimulator.ipynb
 │
