@@ -7,8 +7,12 @@ from qutip import basis
 import scipy.sparse as sparse
 from ipywidgets import interactive, interact
 from ipywidgets import FloatSlider 
-from qutip import tensor, qeye, sigmax, sigmay, sigmaz 
+from qutip import qeye, sigmax, sigmay, sigmaz 
 from numpy import (array, pi, cos, sin, ones, size, sqrt, real, mod, append, arange, exp)
+# pre-allocate operators
+si = qeye(2)      # identity
+sx = sigmax()
+sy = sigmay() 
 
 X = np.array([[0, 1],
               [1, 0]])
@@ -37,11 +41,21 @@ P1 = np.array([[0, 0],
 I = np.identity(2) 
 I8 = np.eye(8, dtype=complex)
 
-ket0 = 1/np.sqrt(2)*basis(2,0) + 1/np.sqrt(2)*basis(2,1) 
+# Sparse helper functions
+def dm_sparse(psi):
+    """Density matrix from state vector (sparse)"""
+    return psi @ psi.getH()
 
-def psi0(N):
-    psi0_flag = tensor([ket0 for n in range(N)])
-    return(psi0_flag)
+
+
+# helper function for initializing all qubits in state zero
+def initRegisterPsi(n):
+    return basisvec(n,0)
+
+def initRegisterRho(n):
+    ini = basisvec(n,0)
+    return np.outer(ini.conj(),ini)
+
     
 # helper function for generating basis vectors
 def basisvec(n, k):
@@ -49,10 +63,6 @@ def basisvec(n, k):
     v[k] = 1
     return v 
     
-def rotation(ax,theta):
-    return sciLA.expm(-1j * theta/2 * (ax[0]*X + ax[1]*Y + ax[2]*Z)) 
-    
-
 def buildSparseGateSingle(n, i, gate):
     """
     Construct a single-qubit gate acting on qubit i in an n-qubit system
@@ -670,48 +680,5 @@ def deutsch_jozsa_error4(n, f, theta, target_qubit, axis):
     state = U_one_gate(R, target_qubit, total_qubits) @ state
 
     return state
-    
 
-
-# Sparse helper functions
-def buildSparseGateSingle(n, i, gate):
-    return sparse.kron(sparse.kron(sparse.identity(2**i), gate), sparse.identity(2**(n-i-1)))
-
-def buildSparseCNOT(n, ic, it):
-    return buildSparseGateSingle(n, ic, P0) + buildSparseGateSingle(n, ic, P1) @ buildSparseGateSingle(n, it, X)
-
-def dm_sparse(psi):
-    """Density matrix from state vector (sparse)"""
-    return psi @ psi.getH()
-
-def ket0_sparse(n=1):
-    """n-qubit |0>"""
-    return sparse.csr_matrix(np.array([[1], [0]], dtype=complex)) if n==1 else sparse.kron(ket0_sparse(), sparse.identity(2**(n-1), dtype=complex))
-
-# Multi-qubit bit-flip Kraus (sparse)
-def bit_flip_kraus_nqubits_sparse(p, n):
-    single_ops = [np.sqrt(1-p) * I, np.sqrt(p) * X]
-    # generate all combinations
-    kraus_ops = []
-    for combo in product(single_ops, repeat=n):
-        K = combo[0]
-        for E in combo[1:]:
-            K = sparse.kron(K, E)
-        kraus_ops.append(K)
-    return kraus_ops
-
-def buildSparseCNOT(n, ic, it):
-    P0ic = buildSparseGateSingle(n, ic, P0)
-    P1ic = buildSparseGateSingle(n, ic, P1)
-    Xit  = buildSparseGateSingle(n, it, X)
-    return P0ic + P1ic @ Xit
-
-
-# helper function for initializing all qubits in state zero
-def initRegisterPsi(n):
-    return basisvec(n,0)
-
-def initRegisterRho(n):
-    ini = basisvec(n,0)
-    return np.outer(ini.conj(),ini)
 
