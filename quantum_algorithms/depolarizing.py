@@ -30,7 +30,11 @@ P1 = np.array([[0, 0],
 # 3-qubit identity
 I8 = np.kron(np.kron(I,I),I)
 
-
+def clean_probs(probs):
+    probs = np.real(probs)
+    probs = np.clip(probs, 0, None)
+    probs = probs / np.sum(probs)
+    return probs
 
 def normalize(v):
     return v / np.linalg.norm(v)

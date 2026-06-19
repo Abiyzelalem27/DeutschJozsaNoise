@@ -30,7 +30,11 @@ P1 = np.array([[0, 0],
 # 3-qubit identity
 I8 = np.kron(np.kron(I,I),I)
 
-
+def clean_probs(probs):
+    probs = np.real(probs)
+    probs = np.clip(probs, 0, None)
+    probs = probs / np.sum(probs)
+    return probs
 
 def normalize(v):
     return v / np.linalg.norm(v)
@@ -441,10 +445,8 @@ def deutsch_jozsa_depolarizing2(n, f, p, target_qubit):
     H_all = U_N_qubits([H] * total_qubits)
     rho = evolve(rho, H_all)
 
-    K = depolarizing_kraus(p)
-    K_full = single_qubit_channel_n_register(
-        K, total_qubits, target_qubit
-    )
+    K = depolarizing_kraus(p)  # depolarizing noise
+    K_full = single_qubit_channel_n_register(K, total_qubits, target_qubit )
 
     rho = apply_kraus(rho, K_full)
 
@@ -472,8 +474,8 @@ def deutsch_jozsa_depolarizing3(n, f, p, target_qubit):
 
     U_f = oracle_matrix(f, n)
     rho = evolve(rho, U_f)
-
-    K = depolarizing_kraus(p)
+ 
+    K = depolarizing_kraus(p) # depolarizing noise
     K_full = single_qubit_channel_n_register(
         K, total_qubits, target_qubit
     )
@@ -504,7 +506,7 @@ def deutsch_jozsa_depolarizing4(n, f, p, target_qubit):
     H_first_n = U_N_qubits([H] * n + [I])
     rho = evolve(rho, H_first_n)
 
-    K = depolarizing_kraus(p)
+    K = depolarizing_kraus(p) # depolarizing noise
     K_full = single_qubit_channel_n_register(
         K, total_qubits, target_qubit
     )
