@@ -1,9 +1,10 @@
 
 
-from . import operators, black_box, deutsch_jozsa
+from . import operators, black_box, deutsch_jozsa, depolarizing
 
 __all__ = [
     "operators",
     "black_box",
-    "deutsch_jozsa"
+    "deutsch_jozsa",
+    "depolarizing"
 ] 
