@@ -38,10 +38,6 @@ def normalize(v):
 def rho_from_state(psi):
     return np.outer(psi, np.conjugate(psi))
 
-    
-def rho_from_state(psi):
-    return np.outer(psi, np.conjugate(psi))
-
 
 def projectors(dim):
     """
@@ -124,7 +120,6 @@ def evolve(state, U):
         return U @ state @ U.conj().T
     else:
         raise ValueError("State must be a vector or a density matrix")
-
 
 def normalize_state(psi):
     """
@@ -301,9 +296,6 @@ def sample_measurements_input(state, n, shots, rng=None):
     return Counter(input_samples) 
 
 
-
-
-
 def apply_kraus(rho, kraus_ops):
     """
     Apply a quantum channel to a density matrix using Kraus operators.
@@ -340,47 +332,21 @@ def dm(psi):
     """
     psi = psi/np.linalg.norm(psi)
     return np.outer(psi, psi.conj())
+    
+def measure_probs_first_n_rho(rho, n):
+    probs = np.zeros(2**n)
 
-def E1_rho(psi, p):
-    """
-    Q3: One-qubit bit flip channel:
-        E1(rho) = (1-p)rho + pXrhoX
-    """
-    rho = dm(psi)
-    return (1 - p) * rho + p * (X @ rho @ X)
+    for x in range(2**n):
+        idx0 = (x << 1) | 0
+        idx1 = (x << 1) | 1
 
-def deutsch_jozsa(n, f):
-    """
-    Deutsch–Jozsa Algorithm(DJA) the Boolean function 
-        is constant or balanced using a single oracle query. 
-    Parameters:
-        n : Number of input qubits
-        f : Oracle function
-    """
-    total_qubits = n + 1
-    state = initial_state(n)
-    state = apply_hadamards(state, total_qubits)
-    U = oracle_function(f, n)
-    state = U(state)
-    H_first_n = U_N_qubits([H] * n + [I])
-    state = H_first_n @ state
-    return state  
+        probs[x] = np.real(
+            rho[idx0, idx0] +
+            rho[idx1, idx1]
+        )
 
-def deutsch_jozsa_error1(n, f, theta, target_qubit, axis):
-    """
-    DJA with a single-qubit rotation error applied before the first Hadamard gates.
-    """
-    total_qubits = n + 1
-    state = initial_state(n)
-    R = rotation_gate(theta, axis)
-    state = U_one_gate(R, target_qubit, total_qubits) @ state
-    state = apply_hadamards(state, total_qubits)
-    U = oracle_function(f, n)
-    state = U(state)
-    H_first_n = U_N_qubits([H]*n + [I])
-    state = H_first_n @ state
+    return probs
 
-    return state
     
 def single_qubit_channel_n_register(kraus_single, n, target):
     """
@@ -418,32 +384,24 @@ def oracle_matrix(f, n):
 
     return U
 
+def deutsch_jozsa(n, f):
+    """
+    Deutsch–Jozsa Algorithm(DJA) the Boolean function 
+        is constant or balanced using a single oracle query. 
+    Parameters:
+        n : Number of input qubits
+        f : Oracle function
+    """
+    total_qubits = n + 1
+    state = initial_state(n)
+    state = apply_hadamards(state, total_qubits)
+    U = oracle_function(f, n)
+    state = U(state)
+    H_first_n = U_N_qubits([H] * n + [I])
+    state = H_first_n @ state
+    return state  
 
-def measure_probs_first_n_rho(rho, n):
-    probs = np.zeros(2**n)
 
-    for x in range(2**n):
-        idx0 = (x << 1) | 0
-        idx1 = (x << 1) | 1
-        probs[x] = np.real(rho[idx0, idx0] + rho[idx1, idx1])
-
-    return probs
-
-
-
-def measure_probs_first_n_rho(rho, n):
-    probs = np.zeros(2**n)
-
-    for x in range(2**n):
-        idx0 = (x << 1) | 0
-        idx1 = (x << 1) | 1
-
-        probs[x] = np.real(
-            rho[idx0, idx0] +
-            rho[idx1, idx1]
-        )
-
-    return probs
 
 def deutsch_jozsa_depolarizing1(n, f, p, target_qubit):
     """
@@ -452,26 +410,23 @@ def deutsch_jozsa_depolarizing1(n, f, p, target_qubit):
     """
     total_qubits = n + 1
 
-    state = initial_state(n)
-    rho = dm(state)
+    rho = dm(initial_state(n))  # initial density matrix
 
-    K = depolarizing_kraus(p)
-    K_full = single_qubit_channel_n_register(
-        K, total_qubits, target_qubit
-    )
-
+    K = depolarizing_kraus(p)    # depolarizing noise E1
+    K_full = single_qubit_channel_n_register(K, total_qubits, target_qubit)
     rho = apply_kraus(rho, K_full)
 
     H_all = U_N_qubits([H] * total_qubits)
-    rho = evolve(rho, H_all)
+    rho = evolve(rho, H_all) # first Hadamards on all qubits
 
-    U_f = oracle_matrix(f, n)
-    rho = evolve(rho, U_f)
+    U_f = oracle_matrix(f, n)  # oracle
+    rho = evolve(rho, U_f)   
 
     H_first_n = U_N_qubits([H] * n + [I])
-    rho = evolve(rho, H_first_n)
+    rho = evolve(rho, H_first_n)  # final Hadamards on input qubits only
 
     return rho
+    
 
 def deutsch_jozsa_depolarizing2(n, f, p, target_qubit):
     """
@@ -501,33 +456,6 @@ def deutsch_jozsa_depolarizing2(n, f, p, target_qubit):
     
     return rho
     
-def deutsch_jozsa_depolarizing2(n, f, p, target_qubit):
-    """
-    Depolarizing noise at E2:
-    After the first Hadamard gates.
-    """
-    total_qubits = n + 1
-
-    state = initial_state(n)
-    rho = dm(state)
-
-    H_all = U_N_qubits([H] * total_qubits)
-    rho = evolve(rho, H_all)
-
-    K = depolarizing_kraus(p)
-    K_full = single_qubit_channel_n_register(
-        K, total_qubits, target_qubit
-    )
-
-    rho = apply_kraus(rho, K_full)
-
-    U_f = oracle_matrix(f, n)
-    rho = evolve(rho, U_f)
-
-    H_first_n = U_N_qubits([H] * n + [I])
-    rho = evolve(rho, H_first_n)
-
-    return rho
 
 def deutsch_jozsa_depolarizing3(n, f, p, target_qubit):
     """
