@@ -65,16 +65,24 @@ DeutschJozsaNoise/
 ├── quantum_algorithms/
 │   ├── __init__.py
 │   ├── operators.py
+│   ├── black_box.py
 │   ├── deutsch_jozsa.py
-│   └── oracle.py
+│   ├── depolarizing.py
+│   └── plotting.py
+│
+├── Rotation_gate/
+│   ├── Rotational_Error_Analysis.ipynb
+│
+├── Depolarizing/
+│   ├── Depolarizing_Noise_Analysis.ipynb
+│
+├── Internship/
+│   ├── Final_Internship_Report.pdf
 │
 ├── images/
 │   ├── oracle_operator.png
 │   ├── deutsch_jozsa_circuit.png
 │   └── dja_noise_model.png
-│
-├── DeutschJozsaNoiseAnalysis.ipynb
-├── QuantumCircuitSimulator.ipynb
 │
 ├── README.md
 ├── pyproject.toml
