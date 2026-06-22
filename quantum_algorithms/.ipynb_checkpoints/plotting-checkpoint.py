@@ -364,13 +364,13 @@ def plot_depolarizing_positions(df, n_plot, function_plot):
 
     plt.xlabel(r"Depolarizing probability $p$", fontsize=12)
     plt.ylabel(r"Probability $P(0\ldots0)$", fontsize=12)
-    plt.title(rf"Effect of depolarizing noise on the Deutsch--Jozsa algorithm"
+    plt.title(
+    rf"Effect of depolarizing noise on the Deutsch--Jozsa algorithm"
     "\n"
-    rf"$\mathrm{{function}}={function_plot},\ n={n_plot},\ "
-    rf"\mathrm{{shots}}={4096}$",
+    rf"$\mathrm{{function}}={function_plot}$",
     fontsize=13)
     
-    plt.ylim(-0.02, 1.05)
+    plt.ylim(-0.1, 1.05)
     plt.xlim(0, 1.0)
 
     plt.legend(fontsize=10)
