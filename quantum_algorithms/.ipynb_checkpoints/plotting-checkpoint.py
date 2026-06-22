@@ -236,13 +236,12 @@ def plot_axis_comparison(df, n_plot, function_plot, error_position, shots):
     plt.legend(fontsize=11)
     plt.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.show()
+    plt.show() 
 
-
-def plot_depolarizing_positions(df, n_plot, function_plot):
+def plot_depolarizing_positions(df, n_plot, function_plot, shots=None):
     """
     Plot P(0...0) against depolarizing probability p.
-s
+
     This shows how depolarizing noise changes the Deutsch-Jozsa result
     at different circuit positions.
     """
@@ -278,6 +277,7 @@ s
         )
 
     function_label = function_to_latex(function_plot)
+    title_shots = f", shots={shots}" if shots is not None else ""
 
     plt.xlabel(r"Depolarizing probability $p$", fontsize=12)
     plt.ylabel(r"Probability $P(0\ldots0)$", fontsize=12)
@@ -285,7 +285,7 @@ s
     plt.title(
         r"Effect of depolarizing noise on the Deutsch--Jozsa algorithm"
         "\n"
-        rf"$f(x)={function_label},\; n={n_plot}$",
+        rf"$f(x)={function_label},\; n={n_plot}{title_shots}$",
         fontsize=13
     )
 
