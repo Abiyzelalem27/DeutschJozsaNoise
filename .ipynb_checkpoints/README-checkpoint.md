@@ -72,28 +72,21 @@ DeutschJozsaNoise/
 │
 ├── Rotation_gate/
 │   ├── Rotational_Error_Analysis.ipynb
-│   ├── Rotational_Error_Analysis_and_Sensitivity.ipynb
-│   ├── Rotational_Error_Performance_and_Scalability.ipynb
-│   └── Rotational_Error_Scalability_and_Average_Success.ipynb
 │
 ├── Depolarizing/
 │   ├── Depolarizing_Noise_Analysis.ipynb
-│   ├── Depolarizing_Noise_Analysis_and_Sensitivity.ipynb
-│   ├── Depolarizing_Noise_Performance_and_Scalability.ipynb
-│   └── dja_depolarizing_results_shots_1024.csv
 │
 ├── Internship/
-│   └── Final_Internship_Report.pdf
+│   ├── Final_Internship_Report.pdf
 │
 ├── images/
+│   ├── oracle_operator.png
 │   ├── deutsch_jozsa_circuit.png
-│   ├── dja_noise_model.png
-│   └── oracle_operator.png
+│   └── dja_noise_model.png
 │
 ├── README.md
 ├── pyproject.toml
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
 ## Example
