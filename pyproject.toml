@@ -36,5 +36,5 @@ where = ["src"]
 [tool.coverage.run]
 omit = [
     "*/tests/*",
-    "*/src/quantum_algorithms/__init__.py", 
+    "*/quantum_algorithms/__init__.py",
 ]
