@@ -1,13 +1,12 @@
 
-
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Adva_Quant_Inform"
+name = "deutsch-jozsa-noise"
 version = "0.0.1"
-description = "Code repository of intership"
+description = "Deutsch–Jozsa algorithm noise analysis and quantum computing toolkit"
 readme = "README.md"
 requires-python = ">=3.9"
 
@@ -18,7 +17,7 @@ dependencies = [
     "ipython",
     "ipywidgets",
     "notebook<7",
-    "qutip", 
+    "qutip",
 ]
 
 [project.optional-dependencies]
@@ -28,11 +27,14 @@ test = [
     "nbconvert",
 ]
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src"]
 
 [tool.coverage.run]
 omit = [
     "*/tests/*",
-    "*/Adva_Quant_Inform/__init__.py",
-] 
+    "*/src/quantum_algorithms/__init__.py", 
+]
