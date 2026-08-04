@@ -4,7 +4,7 @@
 
 [![codecov](https://codecov.io/github/Abiyzelalem27/DeutschJozsaNoise/graph/badge.svg)](https://codecov.io/github/Abiyzelalem27/DeutschJozsaNoise)
 
-# Quantum Algorithms Simulator
+# Quantum Algorithms 
 
 A brute-force classical simulator for quantum circuits and quantum algorithms, with a focus on the Deutsch–Jozsa algorithm and quantum noise analysis.
 
