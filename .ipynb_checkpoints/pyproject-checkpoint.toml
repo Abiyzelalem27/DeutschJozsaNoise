@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "deutsch-jozsa-noise"
 version = "0.0.1"
-description = "Deutsch-Jozsa algorithm noise analysis and quantum computing toolkit"
+description = "Deutsch-Jozsa algorithm noise analysis"
 readme = "README.md"
 requires-python = ">=3.9"
 
@@ -33,10 +33,9 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["quantum_algorithms*"]
+include = ["quantum_algorithms"]
 
 [tool.coverage.run]
 omit = [
-    "*/tests/*",
-    "*/quantum_algorithms/__init__.py",
-]
+    "src/quantum_algorithms/__init__.py",
+] 
