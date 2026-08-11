@@ -408,7 +408,7 @@ def rotation_error_success_probability(
     plt.ylim(0, 1.05)
 
     plt.grid(True, alpha=0.3)
-    plt.legend(title="Error position", loc="upper right")
+    plt.legend(title="Error position")
     plt.tight_layout()
 
     filename = (
