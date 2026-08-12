@@ -5,7 +5,117 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ################################### plotting_rotation.##############################################
+def rotation_error_effect(
+    df,
+    n_plot,
+    axis_plot,
+    target_plot,
+    function_plot,
+    shots
+):
+    """
+    Plot P(0...0) against rotation angle for different
+    error positions in the Deutsch–Jozsa algorithm.
+    """
 
+    axis = axis_plot.upper()
+    axis_lower = axis.lower()
+
+    # Select the requested data
+    plot_df = df[
+        (df["n"] == n_plot)
+        & (df["axis"] == axis)
+        & (df["target_qubit"] == target_plot)
+        & (df["function"] == function_plot)
+        & (df["shots"] == shots)
+    ]
+
+    if plot_df.empty:
+        print("No matching data found.")
+        return
+
+    function_labels = {
+        "constant_0": "Constant 0",
+        "constant_1": "Constant 1",
+        "balanced": "Balanced",
+    }
+
+    function_label = function_labels.get(
+        function_plot,
+        function_plot.replace("_", " ").title()
+    )
+
+    labels = {
+        "no_error":
+            "Ideal circuit",
+
+        "E1_before_H":
+            rf"$R_{{{axis_lower}}}(\theta)$ at $E_1$",
+
+        "E2_after_first_H":
+            rf"$R_{{{axis_lower}}}(\theta)$ at $E_2$",
+
+        "E3_after_oracle":
+            rf"$R_{{{axis_lower}}}(\theta)$ at $E_3$",
+
+        "E4_after_final_H":
+            rf"$R_{{{axis_lower}}}(\theta)$ at $E_4$",
+    }
+
+    plt.figure(figsize=(8, 5), dpi=150)
+
+    for error_pos, label in labels.items():
+
+        subset = (
+            plot_df[
+                plot_df["error_position"] == error_pos
+            ]
+            .sort_values("theta_deg")
+        )
+
+        if subset.empty:
+            continue
+
+        plt.plot(
+            subset["theta_deg"],
+            subset["P0"],
+            marker="o",
+            linewidth=2,
+            markersize=5,
+            label=label
+        )
+
+    plt.xlabel(
+        r"Rotation angle $\theta$ (degrees)",
+        fontsize=12
+    )
+
+    plt.ylabel(
+        r"Probability $P(0\ldots0)$",
+        fontsize=12
+    )
+
+    plt.title(
+        rf"Deutsch–Jozsa under "
+        rf"$R_{{{axis_lower}}}(\theta)$ Errors"
+        "\n"
+        f"Function = {function_label}",
+        fontsize=13
+    )
+
+    plt.xlim(0, 180)
+    plt.ylim(-0.05, 1.05)
+
+    plt.legend(
+        title="Error position",
+        loc="upper right",
+        fontsize=10
+    )
+
+    plt.grid(True, alpha=0.4)
+    plt.tight_layout()
+    plt.show()
+    
 def function_to_latex(function_plot):
     """
     Convert a function name into a clean LaTeX label.
@@ -63,61 +173,6 @@ def add_ideal_reference(df):
         how="left"
     )
 
-def rotation_error_effect(df, n_plot, axis_plot, function_plot, shots):
-    """
-    Plot P(0...0) against rotation angle for different error positions.
-    """
-
-    # Keep only the data needed for this plot.
-    plot_df = df[
-        (df["n"] == n_plot) &
-        (df["axis"] == axis_plot) &
-        (df["function"] == function_plot)
-    ]
-
-    plt.figure(figsize=(8, 5), dpi=150)
-
-    axis = axis_plot.upper()
-
-    labels = {
-        "no_error": "Ideal circuit",
-        "E1_before_H": rf"$R_{{{axis}}}\!\left(\frac{{\pi}}{{2}}\right)$ at $E_1$",
-        "E2_after_first_H": rf"$R_{{{axis}}}\!\left(\frac{{\pi}}{{2}}\right)$ at $E_2$",
-        "E3_after_oracle": rf"$R_{{{axis}}}\!\left(\frac{{\pi}}{{2}}\right)$ at $E_3$",
-        "E4_after_final_H": rf"$R_{{{axis}}}\!\left(\frac{{\pi}}{{2}}\right)$ at $E_4$",
-    }
-
-    # Plot one curve for each error position.
-    for error_pos, label in labels.items():
-        subset = plot_df[plot_df["error_position"] == error_pos]
-
-        if subset.empty:
-            continue
-
-        plt.plot(
-            subset["theta_deg"],
-            subset["P0"],
-            marker="o",
-            linewidth=2,
-            markersize=5,
-            label=label
-        )
-
-    plt.xlabel(r"Rotation angle $\theta$ (degrees)", fontsize=12)
-    plt.ylabel(r"Probability $P(0\ldots0)$", fontsize=12)
-
-    plt.title(
-        f"{axis}-axis rotation error in the Deutsch--Jozsa algorithm\n"
-        f"function = {function_plot}, n = {n_plot}, shots = {shots}",
-        fontsize=13
-    )
-
-    plt.xlim(0, 180)
-    plt.ylim(-0.1, 1.05)
-    plt.legend(fontsize=11)
-    plt.grid(True, alpha=0.4)
-    plt.tight_layout()
-    plt.show()
 
 def rotation_error_sensitivity(
     df,
@@ -355,11 +410,12 @@ def rotation_error_success_probability(
     axis = axis_plot.upper()
 
     plot_df = df[
-        (df["n"] == n_plot)
-        & (df["axis"] == axis)
-        & (df["target_qubit"] == target_plot)
-        & (df["function"] == function_plot)
-    ]
+    (df["n"] == n_plot)
+    & (df["axis"] == axis)
+    & (df["target_qubit"] == target_plot)
+    & (df["function"] == function_plot)
+    & (df["shots"] == shots)
+]
 
     if plot_df.empty:
         print("No matching data found.")
@@ -395,14 +451,15 @@ def rotation_error_success_probability(
         )
 
     plt.xlabel(r"Rotation angle $\theta$ (degrees)", fontsize=12)
-    plt.ylabel("P(0...0)", fontsize=12)
+    plt.ylabel(
+    r"Success probability $P_{\mathrm{success}}$",
+    fontsize=12)
 
     plt.title(
-        f"Probability under {axis}-Axis Rotation Errors\n"
-        f"{function_plot.replace('_', ' ').title()}, "
-        f"n={n_plot}, target qubit={target_plot}, shots={shots}",
-        fontsize=13,
-    )
+    f"Success Probability under {axis}-Axis Rotation Errors\n"
+    f"{function_plot.replace('_', ' ').title()}, "
+    f"n={n_plot}, target qubit={target_plot}, shots={shots}",
+    fontsize=13,)
 
     plt.xlim(0, 180)
     plt.ylim(0, 1.05)
