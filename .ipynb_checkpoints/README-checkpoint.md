@@ -4,7 +4,7 @@
 
 [![codecov](https://codecov.io/github/Abiyzelalem27/DeutschJozsaNoise/graph/badge.svg)](https://codecov.io/github/Abiyzelalem27/DeutschJozsaNoise)
 
-# Quantum Algorithms Simulator
+# Quantum Algorithms 
 
 A brute-force classical simulator for quantum circuits and quantum algorithms, with a focus on the Deutsch–Jozsa algorithm and quantum noise analysis.
 
@@ -14,7 +14,7 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 * Quantum circuit simulation on classical hardware
 * Deutsch–Jozsa algorithm implementation
 * Oracle-based black-box functions
-* Quantum measurement simulation
+* Quantum measurement simulation 
 * Single-qubit rotation gate errors
 * Noise analysis at different stages of the algorithm
 * Statistical measurement experiments
@@ -28,6 +28,36 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 <p align="center">
 <b>Figure:</b> Quantum oracle operator implementing
 \(U_f |x\rangle |y\rangle = |x\rangle |y \oplus f(x)\rangle\).
+</p>
+
+## Rotation-Gate Error Results
+
+### Constant-0 Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_constant_0_n9_X_q4.png" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Y_q4.png" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Z_q4.png" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure:</b> Success probability for the constant-0 function with
+  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
+  error is applied to qubit 4.
+</p>
+
+### Balanced Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_balanced_n9_X_q4.png" width="31%">
+  <img src="images/rotation_success_balanced_n9_Y_q4.png" width="31%">
+  <img src="images/rotation_success_balanced_n9_Z_q4.png" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure:</b> Success probability for the balanced function with
+  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
+  error is applied to qubit 4.
 </p>
 
 ---
@@ -72,21 +102,28 @@ DeutschJozsaNoise/
 │
 ├── Rotation_gate/
 │   ├── Rotational_Error_Analysis.ipynb
+│   ├── Rotational_Error_Analysis_and_Sensitivity.ipynb
+│   ├── Rotational_Error_Performance_and_Scalability.ipynb
+│   └── Rotational_Error_Scalability_and_Average_Success.ipynb
 │
 ├── Depolarizing/
 │   ├── Depolarizing_Noise_Analysis.ipynb
+│   ├── Depolarizing_Noise_Analysis_and_Sensitivity.ipynb
+│   ├── Depolarizing_Noise_Performance_and_Scalability.ipynb
+│   └── dja_depolarizing_results_shots_1024.csv
 │
 ├── Internship/
-│   ├── Final_Internship_Report.pdf
+│   └── Final_Internship_Report.pdf
 │
 ├── images/
-│   ├── oracle_operator.png
 │   ├── deutsch_jozsa_circuit.png
-│   └── dja_noise_model.png
+│   ├── dja_noise_model.png
+│   └── oracle_operator.png
 │
 ├── README.md
 ├── pyproject.toml
-└── LICENSE
+├── LICENSE
+└── .gitignore
 ```
 
 ## Example

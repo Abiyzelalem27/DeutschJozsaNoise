@@ -14,7 +14,7 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 * Quantum circuit simulation on classical hardware
 * Deutsch–Jozsa algorithm implementation
 * Oracle-based black-box functions
-* Quantum measurement simulation
+* Quantum measurement simulation 
 * Single-qubit rotation gate errors
 * Noise analysis at different stages of the algorithm
 * Statistical measurement experiments
@@ -28,6 +28,36 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 <p align="center">
 <b>Figure:</b> Quantum oracle operator implementing
 \(U_f |x\rangle |y\rangle = |x\rangle |y \oplus f(x)\rangle\).
+</p>
+
+## Rotation-Gate Error Results
+
+### Constant-0 Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_constant_0_n9_X_q4.png" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Y_q4.png" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Z_q4.png" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure:</b> Success probability for the constant-0 function with
+  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
+  error is applied to qubit 4.
+</p>
+
+### Balanced Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_balanced_n9_X_q4.png" width="31%">
+  <img src="images/rotation_success_balanced_n9_Y_q4.png" width="31%">
+  <img src="images/rotation_success_balanced_n9_Z_q4.png" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure:</b> Success probability for the balanced function with
+  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
+  error is applied to qubit 4.
 </p>
 
 ---
