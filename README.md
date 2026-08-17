@@ -25,6 +25,17 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 The following figures show the effect of single-qubit rotation errors on
 the success probability of the Deutsch–Jozsa algorithm.
 
+## Noise Model 
+
+<p align="center">
+  <img src="images/dja_noise_model.png" width="850">
+</p>
+
+<p align="center">
+<b>Figure:</b> Modified Deutsch–Jozsa circuit with localized noise channels
+applied at different stages of the computation.
+</p>
+
 ### Constant-0 Function — 9 Qubits
 
 <p align="center">
@@ -58,20 +69,40 @@ the success probability of the Deutsch–Jozsa algorithm.
   X-, Y-, and Z-axis rotation errors. The rotation error is applied to
   qubit 4 in the nine-qubit case.
 </p>
+---
+### Constant-1 Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_constant_1_n9_X_q4.png"
+       alt="Constant-1 with X-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_1_n9_Y_q4.png"
+       alt="Constant-1 with Y-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_1_n9_Z_q4.png"
+       alt="Constant-1 with Z-axis rotation error" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure 2:</b> Success probability for the constant-1 function under
+  X-, Y-, and Z-axis rotation errors. The error is applied to qubit 4
+  in the nine-qubit case.
+</p>
 
 ---
 
-## Noise Model 
+### Rotation-Error Scalability
 
 <p align="center">
-  <img src="images/dja_noise_model.png" width="850">
+  <img src="images/scalability_balanced_E3_after_oracle_X_90deg.png"
+       alt="Balanced-function scalability with error after oracle" width="47%">
+  <img src="images/scalability_balanced_E4_after_final_H_X_90deg.png"
+       alt="Balanced-function scalability with error after final Hadamard" width="47%">
 </p>
 
 <p align="center">
-<b>Figure:</b> Modified Deutsch–Jozsa circuit with localized noise channels
-applied at different stages of the computation.
+  <b>Figure 4:</b> Scalability of the balanced-function implementation
+  under a 90-degree X-rotation error introduced after the oracle (E3)
+  and after the final Hadamard layer (E4).
 </p>
-
 
 ## Repository Structure
 
