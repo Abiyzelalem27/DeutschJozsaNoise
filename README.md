@@ -19,63 +19,49 @@ A brute-force classical simulator for quantum circuits and quantum algorithms, w
 * Noise analysis at different stages of the algorithm
 * Statistical measurement experiments
 
-## Oracle Operator
-
-<p align="center">
-  <img src="images/oracle_operator.png" width="700">
-</p>
-
-<p align="center">
-<b>Figure:</b> Quantum oracle operator implementing
-\(U_f |x\rangle |y\rangle = |x\rangle |y \oplus f(x)\rangle\).
-</p>
 
 ## Rotation-Gate Error Results
+
+The following figures show the effect of single-qubit rotation errors on
+the success probability of the Deutsch–Jozsa algorithm.
 
 ### Constant-0 Function — 9 Qubits
 
 <p align="center">
-  <img src="images/rotation_success_constant_0_n9_X_q4.png" width="31%">
-  <img src="images/rotation_success_constant_0_n9_Y_q4.png" width="31%">
-  <img src="images/rotation_success_constant_0_n9_Z_q4.png" width="31%">
+  <img src="images/rotation_success_constant_0_n9_X_q4.png"
+       alt="Constant-0 function with X-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Y_q4.png"
+       alt="Constant-0 function with Y-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_0_n9_Z_q4.png"
+       alt="Constant-0 function with Z-axis rotation error" width="31%">
 </p>
 
 <p align="center">
-  <b>Figure:</b> Success probability for the constant-0 function with
-  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
-  error is applied to qubit 4.
+  <b>Figure 1:</b> Success probability for the constant-0 function under
+  X-, Y-, and Z-axis rotation errors. The rotation error is applied to
+  qubit 4 in the nine-qubit case.
 </p>
 
 ### Balanced Function — 9 Qubits
 
 <p align="center">
-  <img src="images/rotation_success_balanced_n9_X_q4.png" width="31%">
-  <img src="images/rotation_success_balanced_n9_Y_q4.png" width="31%">
-  <img src="images/rotation_success_balanced_n9_Z_q4.png" width="31%">
+  <img src="images/rotation_success_balanced_n9_X_q4.png"
+       alt="Balanced function with X-axis rotation error" width="31%">
+  <img src="images/rotation_success_balanced_n9_Y_q4.png"
+       alt="Balanced function with Y-axis rotation error" width="31%">
+  <img src="images/rotation_success_balanced_n9_Z_q4.png"
+       alt="Balanced function with Z-axis rotation error" width="31%">
 </p>
 
 <p align="center">
-  <b>Figure:</b> Success probability for the balanced function with
-  X-, Y-, and Z-axis rotation errors in the nine-qubit case. The rotation
-  error is applied to qubit 4.
+  <b>Figure 2:</b> Success probability for the balanced function under
+  X-, Y-, and Z-axis rotation errors. The rotation error is applied to
+  qubit 4 in the nine-qubit case.
 </p>
 
 ---
 
-## Deutsch–Jozsa Circuit
-
-<p align="center">
-  <img src="images/deutsch_jozsa_circuit.png" width="850">
-</p>
-
-<p align="center">
-<b>Figure:</b> Standard Deutsch–Jozsa quantum circuit used to determine
-whether a Boolean function is constant or balanced.
-</p>
-
----
-
-## Noise Model
+## Noise Model 
 
 <p align="center">
   <img src="images/dja_noise_model.png" width="850">
