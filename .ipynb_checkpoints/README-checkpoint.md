@@ -6,24 +6,26 @@
 
 # Quantum Algorithms 
 
-A brute-force classical simulator for quantum circuits and quantum algorithms, with a focus on the Deutsch–Jozsa algorithm and quantum noise analysis.
-
+A Classical simulator for quantum circuits and quantum algorithms, with a focus on the Deutsch–Jozsa algorithm and quantum noise analysis.
 
 ## Features
 
-* Quantum circuit simulation on classical hardware
-* Deutsch–Jozsa algorithm implementation
-* Oracle-based black-box functions
-* Quantum measurement simulation 
-* Single-qubit rotation gate errors
-* Noise analysis at different stages of the algorithm
-* Statistical measurement experiments
+* Brute-force state-vector simulation of the Deutsch–Jozsa algorithm
+* Constant-0, constant-1, and balanced quantum-oracle implementations
+* Coherent X-, Y-, and Z-axis rotation-error analysis
+* Depolarizing-noise analysis at four circuit locations (E1–E4)
+* Sensitivity, scalability, and shot-based performance evaluation
 
+## Noise Model 
 
-## Rotation-Gate Error Results
+<p align="center">
+  <img src="images/dja_noise_model.png" width="850">
+</p>
 
-The following figures show the effect of single-qubit rotation errors on
-the success probability of the Deutsch–Jozsa algorithm.
+<p align="center">
+<b>Figure:</b> Modified Deutsch–Jozsa circuit with localized noise channels
+applied at different stages of the computation.
+</p>
 
 ### Constant-0 Function — 9 Qubits
 
@@ -58,20 +60,62 @@ the success probability of the Deutsch–Jozsa algorithm.
   X-, Y-, and Z-axis rotation errors. The rotation error is applied to
   qubit 4 in the nine-qubit case.
 </p>
+---
+### Constant-1 Function — 9 Qubits
+
+<p align="center">
+  <img src="images/rotation_success_constant_1_n9_X_q4.png"
+       alt="Constant-1 with X-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_1_n9_Y_q4.png"
+       alt="Constant-1 with Y-axis rotation error" width="31%">
+  <img src="images/rotation_success_constant_1_n9_Z_q4.png"
+       alt="Constant-1 with Z-axis rotation error" width="31%">
+</p>
+
+<p align="center">
+  <b>Figure 2:</b> Success probability for the constant-1 function under
+  X-, Y-, and Z-axis rotation errors. The error is applied to qubit 4
+  in the nine-qubit case.
+</p>
 
 ---
 
-## Noise Model 
+### Rotation-Error Scalability
 
 <p align="center">
-  <img src="images/dja_noise_model.png" width="850">
+  <img src="images/scalability_balanced_E3_after_oracle_X_90deg.png"
+       alt="Balanced-function scalability with error after oracle" width="47%">
+  <img src="images/scalability_balanced_E4_after_final_H_X_90deg.png"
+       alt="Balanced-function scalability with error after final Hadamard" width="47%">
 </p>
 
 <p align="center">
-<b>Figure:</b> Modified Deutsch–Jozsa circuit with localized noise channels
-applied at different stages of the computation.
+  <b>Figure 4:</b> Scalability of the balanced-function implementation
+  under a 90-degree X-rotation error introduced after the oracle (E3)
+  and after the final Hadamard layer (E4).
 </p>
 
+---
+
+## Depolarizing-Noise Results
+
+The following figure shows the effect of depolarizing noise introduced at different stages of the Deutsch–Jozsa algorithm.
+
+### Constant-0 Function — 9 Qubits
+
+<p align="center">
+  <img src="images/depolarizing_constant0_9qubits.png"
+       alt="Effect of depolarizing noise on the Deutsch–Jozsa algorithm for the constant-0 function"
+       width="850">
+</p>
+
+<p align="center">
+  <b>Figure 5:</b> Success probability for the constant-0 function under
+  depolarizing noise introduced before the first Hadamard layer (E1),
+  after the first Hadamard layer (E2), after the oracle (E3), and after
+  the final Hadamard layer (E4). The ideal circuit maintains unit success
+  probability.
+</p>
 
 ## Repository Structure
 
@@ -86,25 +130,10 @@ DeutschJozsaNoise/
 │   ├── depolarizing.py
 │   └── plotting.py
 │
-├── Rotation_gate/
-│   ├── Rotational_Error_Analysis.ipynb
-│   ├── Rotational_Error_Analysis_and_Sensitivity.ipynb
-│   ├── Rotational_Error_Performance_and_Scalability.ipynb
-│   └── Rotational_Error_Scalability_and_Average_Success.ipynb
-│
-├── Depolarizing/
-│   ├── Depolarizing_Noise_Analysis.ipynb
-│   ├── Depolarizing_Noise_Analysis_and_Sensitivity.ipynb
-│   ├── Depolarizing_Noise_Performance_and_Scalability.ipynb
-│   └── dja_depolarizing_results_shots_1024.csv
-│
-├── Internship/
-│   └── Final_Internship_Report.pdf
-│
+├── Rotation_gate/   # notebook for  rotation-error analysis, visualizations, and results
+├── Depolarizing/  # notebook for depolarizing-noise analysis, visualizations, and results
+├── Internship/  # Internship report and PowerPoint presentation
 ├── images/
-│   ├── deutsch_jozsa_circuit.png
-│   ├── dja_noise_model.png
-│   └── oracle_operator.png
 │
 ├── README.md
 ├── pyproject.toml
